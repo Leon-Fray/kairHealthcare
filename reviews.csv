@@ -1,0 +1,12 @@
+id,patient_id,practitioner_id,rating,comment,created_at
+770e8400-e29b-41d4-a716-446655440001,550e8400-e29b-41d4-a716-446655440000,550e8400-e29b-41d4-a716-446655440010,5,"Dr. Anderson is excellent! Very thorough and explains everything clearly. Highly recommend.",2024-02-16 10:00:00+00
+770e8400-e29b-41d4-a716-446655440002,550e8400-e29b-41d4-a716-446655440001,550e8400-e29b-41d4-a716-446655440011,5,"Dr. Garcia is compassionate and understanding. She really helped me manage my anxiety. The best psychiatrist I've seen.",2024-02-17 15:30:00+00
+770e8400-e29b-41d4-a716-446655440003,550e8400-e29b-41d4-a716-446655440002,550e8400-e29b-41d4-a716-446655440012,4,"Dr. Taylor is knowledgeable and professional. The surgery went well and recovery is on track.",2024-02-18 11:30:00+00
+770e8400-e29b-41d4-a716-446655440004,550e8400-e29b-41d4-a716-446655440003,550e8400-e29b-41d4-a716-446655440013,5,"Dr. Brown is amazing with children! My daughter feels comfortable and the care is excellent.",2024-02-19 16:00:00+00
+770e8400-e29b-41d4-a716-446655440005,550e8400-e29b-41d4-a716-446655440004,550e8400-e29b-41d4-a716-446655440014,5,"Very professional and thorough skin examination. Dr. Martinez caught an issue early. Great experience!",2024-02-20 12:00:00+00
+770e8400-e29b-41d4-a716-446655440006,550e8400-e29b-41d4-a716-446655440000,550e8400-e29b-41d4-a716-446655440011,4,"Good telehealth session. Dr. Garcia is attentive even through video calls.",2024-02-21 14:30:00+00
+770e8400-e29b-41d4-a716-446655440007,550e8400-e29b-41d4-a716-446655440001,550e8400-e29b-41d4-a716-446655440010,4,"Follow-up appointment was smooth. Dr. Anderson addressed all my concerns.",2024-02-22 10:30:00+00
+770e8400-e29b-41d4-a716-446655440008,550e8400-e29b-41d4-a716-446655440002,550e8400-e29b-41d4-a716-446655440013,5,"Dr. Brown is fantastic! Very patient and explains things in a way kids understand.",2024-02-23 17:00:00+00
+770e8400-e29b-41d4-a716-446655440009,550e8400-e29b-41d4-a716-446655440003,550e8400-e29b-41d4-a716-446655440012,3,"The consultation was okay, but I felt rushed. However, the doctor was knowledgeable.",2024-02-24 15:30:00+00
+770e8400-e29b-41d4-a716-446655440010,550e8400-e29b-41d4-a716-446655440004,550e8400-e29b-41d4-a716-446655440010,5,"Second visit with Dr. Anderson. Consistent quality care. Very satisfied!",2024-02-25 11:00:00+00
+

@@ -1,0 +1,191 @@
+{
+  "doctors": [
+    {
+      "id": "dr_smith",
+      "name": "Dr. Sarah Smith",
+      "specialty": "General Practitioner",
+      "description": "General health concerns, common illnesses, and initial diagnoses",
+      "weights": {
+        "fever": 0.8,
+        "head_pain": 0.7,
+        "stomach_ache": 0.6,
+        "cough": 0.9,
+        "cold": 0.9,
+        "fatigue": 0.7,
+        "nausea": 0.6,
+        "sore_throat": 0.8,
+        "general": 0.5
+      }
+    },
+    {
+      "id": "dr_jones",
+      "name": "Dr. Michael Jones",
+      "specialty": "Orthopedist",
+      "description": "Bone, joint, and muscle issues",
+      "weights": {
+        "ankle_pain": 0.9,
+        "joint_pain": 0.95,
+        "swollen_hands": 0.8,
+        "back_pain": 0.9,
+        "knee_pain": 0.9,
+        "shoulder_pain": 0.8,
+        "fracture": 0.95,
+        "wrist_pain": 0.85,
+        "elbow_pain": 0.85
+      }
+    },
+    {
+      "id": "dr_wilson",
+      "name": "Dr. Emily Wilson",
+      "specialty": "Neurologist",
+      "description": "Headaches, migraines, and neurological symptoms",
+      "weights": {
+        "head_pain": 0.95,
+        "migraine": 0.98,
+        "dizziness": 0.8,
+        "numbness": 0.9,
+        "vision_problems": 0.7,
+        "seizure": 0.95,
+        "tremor": 0.85
+      }
+    },
+    {
+      "id": "dr_garcia",
+      "name": "Dr. Carlos Garcia",
+      "specialty": "Gastroenterologist",
+      "description": "Digestive system and stomach issues",
+      "weights": {
+        "stomach_ache": 0.95,
+        "nausea": 0.9,
+        "vomiting": 0.8,
+        "diarrhea": 0.9,
+        "bloating": 0.8,
+        "heartburn": 0.9,
+        "constipation": 0.85,
+        "indigestion": 0.85
+      }
+    },
+    {
+      "id": "dr_chen",
+      "name": "Dr. Alana Chen",
+      "specialty": "Ear, Nose, and Throat (ENT) Specialist",
+      "description": "Ear, nose, throat, and related head and neck issues",
+      "weights": {
+        "sore_throat": 0.95,
+        "ear_pain": 0.9,
+        "hearing_loss": 0.9,
+        "sinus_pain": 0.85,
+        "nose_congestion": 0.8,
+        "tonsillitis": 0.95
+      }
+    }
+  ],
+  "symptoms": {
+    "fever": {
+      "keywords": ["fever", "temperature", "hot", "burning up", "feverish", "chills", "sweating"],
+      "follow_up": "How long have you had the fever?",
+      "aliases": ["feverish", "high temperature"]
+    },
+    "head_pain": {
+      "keywords": ["headache", "head pain", "head hurting", "head ache", "hurting head", "pain in head", "head pounding"],
+      "follow_up": "Is the pain sharp or dull, and where is it located?",
+      "aliases": ["head ache", "hurting head"]
+    },
+    "migraine": {
+      "keywords": ["migraine", "severe headache", "pounding headache", "light sensitivity"],
+      "follow_up": "Do you experience sensitivity to light or nausea with the headache?",
+      "aliases": ["severe headache"]
+    },
+    "ankle_pain": {
+      "keywords": ["ankle pain", "sore ankle", "ankle hurt", "painful ankle", "ankle swelling", "twisted ankle"],
+      "follow_up": "Did you injure your ankle recently?",
+      "aliases": ["painful ankle", "ankle swelling"]
+    },
+    "joint_pain": {
+      "keywords": ["joint pain", "aching joints", "sore joints", "joints hurt", "painful joints", "stiff joints"],
+      "follow_up": "Are multiple joints affected?",
+      "aliases": ["joints hurt", "painful joints"]
+    },
+    "stomach_ache": {
+      "keywords": ["stomach ache", "stomach pain", "belly ache", "abdominal pain", "tummy ache", "stomach hurt", "belly pain"],
+      "follow_up": "Is the pain localized or general? How severe is it?",
+      "aliases": ["tummy ache", "stomach hurt"]
+    },
+    "swollen_hands": {
+      "keywords": ["swollen hands", "hand swelling", "puffy hands", "hands swollen", "swelling in hands"],
+      "follow_up": "Is the swelling in both hands? When did it start?",
+      "aliases": ["hands swollen", "swelling in hands"]
+    },
+    "cough": {
+      "keywords": ["cough", "coughing", "hacking", "persistent cough"],
+      "follow_up": "Is it a dry or productive cough?",
+      "aliases": ["persistent cough"]
+    },
+    "nausea": {
+      "keywords": ["nausea", "nauseous", "queasy", "feeling sick", "sick to stomach"],
+      "follow_up": "Have you experienced any vomiting?",
+      "aliases": ["feeling sick", "sick to stomach"]
+    },
+    "back_pain": {
+      "keywords": ["back pain", "backache", "sore back", "back hurt", "painful back"],
+      "follow_up": "Is the pain in your upper or lower back?",
+      "aliases": ["back hurt", "painful back"]
+    },
+    "sore_throat": {
+      "keywords": ["sore throat", "throat pain", "throat hurts", "scratchy throat", "painful throat"],
+      "follow_up": "Is it painful to swallow? Do you have any other symptoms?",
+      "aliases": ["throat pain", "throat hurts"]
+    },
+    "knee_pain": {
+      "keywords": ["knee pain", "sore knee", "knee hurt", "painful knee", "knee swelling"],
+      "follow_up": "Is there any swelling or clicking in the knee?",
+      "aliases": ["painful knee", "sore knee"]
+    },
+    "shoulder_pain": {
+      "keywords": ["shoulder pain", "sore shoulder", "shoulder hurt", "painful shoulder"],
+      "follow_up": "Can you move your shoulder normally?",
+      "aliases": ["painful shoulder"]
+    },
+    "dizziness": {
+      "keywords": ["dizzy", "dizziness", "lightheaded", "vertigo", "spinning"],
+      "follow_up": "Is the dizziness constant or does it come and go?",
+      "aliases": ["lightheaded", "vertigo"]
+    },
+    "vomiting": {
+      "keywords": ["vomiting", "throwing up", "vomit", "puking"],
+      "follow_up": "How often are you vomiting?",
+      "aliases": ["throwing up", "puking"]
+    },
+    "diarrhea": {
+      "keywords": ["diarrhea", "loose stools", "watery stools", "frequent bowel movements"],
+      "follow_up": "How long have you had diarrhea?",
+      "aliases": ["loose stools"]
+    },
+    "ear_pain": {
+      "keywords": ["ear pain", "earache", "ear hurt", "painful ear"],
+      "follow_up": "Is the pain in one or both ears?",
+      "aliases": ["earache", "ear hurt"]
+    },
+    "cold": {
+      "keywords": ["cold", "runny nose", "congestion", "sniffles"],
+      "follow_up": "How long have you had these cold symptoms?",
+      "aliases": ["runny nose", "congestion"]
+    },
+    "fatigue": {
+      "keywords": ["tired", "fatigue", "exhausted", "no energy", "weakness"],
+      "follow_up": "How long have you been feeling fatigued?",
+      "aliases": ["exhausted", "tired"]
+    }
+  },
+  "follow_up_questions": {
+    "general": [
+      "How long have you been experiencing these symptoms?",
+      "Are the symptoms constant or intermittent?",
+      "Have you taken any medication for this?"
+    ],
+    "severity": [
+      "On a scale of 1-10, how would you rate the severity?",
+      "Is the pain getting worse or staying the same?"
+    ]
+  }
+}
