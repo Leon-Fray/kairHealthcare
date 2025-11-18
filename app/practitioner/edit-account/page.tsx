@@ -96,9 +96,9 @@ export default function EditAccountPage() {
     try {
       await updatePractitioner(user.id, {
         specialty,
-        credentials: credentials || null,
+        credentials: credentials || undefined,
         consultation_types: consultationTypes,
-        bio: bio || null,
+        bio: bio || undefined,
       })
 
       await refreshProfile()
