@@ -32,12 +32,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    // Check if Supabase is properly configured
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    
+    if (!supabaseUrl || !supabaseKey || supabaseUrl === 'https://placeholder.supabase.co') {
+      console.warn('Supabase environment variables not configured')
+      setLoading(false)
+      return
+    }
+
     // Check active session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('Error getting session:', error)
+        setLoading(false)
+        return
+      }
       setUser(session?.user ?? null)
       if (session?.user) {
-        getProfile(session.user.id).then(setProfile)
+        getProfile(session.user.id).then(setProfile).catch((err) => {
+          console.error('Error fetching profile:', err)
+        })
       }
+      setLoading(false)
+    }).catch((err) => {
+      console.error('Error in getSession:', err)
       setLoading(false)
     })
 
@@ -46,8 +66,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       async (_event, session) => {
         setUser(session?.user ?? null)
         if (session?.user) {
-          const userProfile = await getProfile(session.user.id)
-          setProfile(userProfile)
+          try {
+            const userProfile = await getProfile(session.user.id)
+            setProfile(userProfile)
+          } catch (err) {
+            console.error('Error fetching profile:', err)
+          }
         } else {
           setProfile(null)
         }
