@@ -39,8 +39,8 @@ A full-stack healthcare booking platform that connects patients with healthcare 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd karihealth
+git clone https://github.com/Leon-Fray/kairHealthcare.git
+cd kariHealth
 ```
 
 2. Install dependencies:
