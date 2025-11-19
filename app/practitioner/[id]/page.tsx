@@ -3,6 +3,9 @@ import { getPractitioner, getPractitionerReviews } from '@/lib/database'
 import { PractitionerProfileView } from '@/components/practitioner/practitioner-profile-view'
 import { notFound } from 'next/navigation'
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic'
+
 export default async function PractitionerProfilePage({
   params,
 }: {
