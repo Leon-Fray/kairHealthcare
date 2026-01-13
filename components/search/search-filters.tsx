@@ -21,6 +21,7 @@ const SPECIALTIES = [
   'Ophthalmology',
   'Dentistry',
   'Physical Therapy',
+  'Therapy',
 ]
 
 interface SearchFiltersProps {

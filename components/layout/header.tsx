@@ -17,29 +17,46 @@ import { User, LogOut, Settings, Calendar, Users } from 'lucide-react'
 import { cn, getInitials } from '@/lib/utils'
 import Image from 'next/image'
 
+import { useState, useEffect } from 'react'
+
 export function Header() {
   const { user, profile, signOut } = useAuth()
   const pathname = usePathname()
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const isActive = (path: string) => pathname === path || pathname.startsWith(path)
 
   // Logo based on user role
-  const logoSrc = profile?.role === 'practitioner' 
-    ? '/icons/Doctors_icon.png' 
+  const logoSrc = profile?.role === 'practitioner'
+    ? '/icons/Doctors_icon.png'
     : '/icons/Patients_Icon.png'
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
+    <header className={cn(
+      "sticky top-0 z-50 w-full transition-all duration-300",
+      isScrolled
+        ? "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm py-2"
+        : "bg-transparent border-transparent py-4"
+    )}>
+      <div className="container flex h-auto items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <div className="relative w-12 h-12">
-            {/* We'll use a placeholder for now */}
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
-              K
-            </div>
-          </div>
-          <span className="font-bold text-xl">Kari Health</span>
+          <Image
+            src="/logo.png"
+            alt="Kari Health Logo"
+            width={840}
+            height={240}
+            className="h-[120px] w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Navigation */}
@@ -50,7 +67,7 @@ export function Header() {
               <Link
                 href="/search"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
+                  'text-lg font-medium transition-colors hover:text-primary',
                   isActive('/search') && 'text-primary'
                 )}
               >
@@ -58,7 +75,7 @@ export function Header() {
               </Link>
               <Link
                 href="/practitioner-signup"
-                className="text-sm font-medium transition-colors hover:text-primary"
+                className="text-lg font-medium transition-colors hover:text-primary"
               >
                 For Practitioners
               </Link>
@@ -69,7 +86,7 @@ export function Header() {
               <Link
                 href="/search"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/search') && 'bg-secondary-patient/20 text-primary'
                 )}
               >
@@ -78,7 +95,7 @@ export function Header() {
               <Link
                 href="/dashboard"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/dashboard') && 'bg-secondary-patient/20 text-primary'
                 )}
               >
@@ -91,7 +108,7 @@ export function Header() {
               <Link
                 href="/practitioner/dashboard"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/practitioner/dashboard') && 'bg-secondary-doctor/20 text-primary'
                 )}
               >
@@ -100,7 +117,7 @@ export function Header() {
               <Link
                 href="/practitioner/schedule"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/practitioner/schedule') && 'bg-secondary-doctor/20 text-primary'
                 )}
               >
@@ -109,7 +126,7 @@ export function Header() {
               <Link
                 href="/practitioner/appointment-history"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/practitioner/appointment-history') && 'bg-secondary-doctor/20 text-primary'
                 )}
               >
@@ -118,7 +135,7 @@ export function Header() {
               <Link
                 href="/practitioner/edit-account"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/practitioner/edit-account') && 'bg-secondary-doctor/20 text-primary'
                 )}
               >
@@ -131,7 +148,7 @@ export function Header() {
               <Link
                 href="/admin/users"
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
+                  'text-lg font-medium transition-colors hover:text-primary px-3 py-2 rounded-md',
                   isActive('/admin/users') && 'bg-primary/20 text-primary'
                 )}
               >
@@ -168,7 +185,7 @@ export function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                
+
                 {profile.role === 'patient' && (
                   <DropdownMenuItem asChild>
                     <Link href="/dashboard">
@@ -177,7 +194,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                 )}
-                
+
                 {profile.role === 'practitioner' && (
                   <>
                     <DropdownMenuItem asChild>

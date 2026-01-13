@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check if Supabase is properly configured
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    
+
     if (!supabaseUrl || !supabaseKey || supabaseUrl === 'https://placeholder.supabase.co') {
       console.warn('Supabase environment variables not configured')
       setLoading(false)
@@ -50,11 +50,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return
       }
       setUser(session?.user ?? null)
-      if (session?.user) {
-        getProfile(session.user.id).then(setProfile).catch((err) => {
-          console.error('Error fetching profile:', err)
-        })
-      }
       setLoading(false)
     }).catch((err) => {
       console.error('Error in getSession:', err)
@@ -88,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email,
         password,
       })
-      
+
       if (error) throw error
       return { error: null }
     } catch (error) {

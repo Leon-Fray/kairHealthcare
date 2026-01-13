@@ -22,6 +22,7 @@ const SPECIALTIES = [
   'Ophthalmology',
   'Dentistry',
   'Physical Therapy',
+  'Therapy',
 ]
 
 export function SearchCard() {
@@ -35,12 +36,12 @@ export function SearchCard() {
     if (specialty) params.set('specialty', specialty)
     if (date) params.set('date', date)
     if (location) params.set('location', location)
-    
+
     router.push(`/search?${params.toString()}`)
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg card-enhanced">
+    <Card className="w-full max-w-4xl mx-auto shadow-lg">
       <CardContent className="p-6 md:p-8">
         <div className="mb-6">
           <h3 className="text-2xl font-bold mb-2">Find Your Healthcare Provider</h3>

@@ -11,7 +11,7 @@ export default function HomePage() {
     <MainLayout>
       {/* Hero Section */}
       <section className="bg-leaf-pattern py-12 md:py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 ml-12">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">

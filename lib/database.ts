@@ -148,6 +148,10 @@ export async function getPatientAppointments(patientId: string) {
     .eq('patient_id', patientId)
     .order('start_time', { ascending: true })
 
+  if (data) {
+    console.log(`[Database] Fetched ${data.length} appointments for patient ${patientId}`)
+  }
+
   if (error) {
     console.error('Error fetching patient appointments:', error)
     return []
