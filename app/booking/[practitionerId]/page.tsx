@@ -35,6 +35,7 @@ export default function BookingPage() {
   const [notes, setNotes] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState('')
 
   const { user } = useAuth()
   const router = useRouter()
@@ -45,7 +46,7 @@ export default function BookingPage() {
       setLoading(false)
       return
     }
-    
+
     const loadPractitioner = async () => {
       try {
         const data = await getPractitioner(practitionerId)
@@ -70,7 +71,7 @@ export default function BookingPage() {
       return
     }
 
-    if (!date || !time || !consultationType || !reason || !email || !phone) {
+    if (!date || !time || !consultationType || !reason || !email || !phone || !paymentMethod) {
       setError('Please fill in all required fields')
       setSubmitting(false)
       return
@@ -103,11 +104,11 @@ export default function BookingPage() {
         start_time: startTime.toISOString(),
         end_time: endTime.toISOString(),
         type: consultationType,
-        notes: `Contact Information:\nEmail: ${email}\nPhone: ${phone}\n\nReason: ${reason}${notes ? `\n\nAdditional Notes: ${notes}` : ''}`,
+        notes: `Contact Information:\nEmail: ${email}\nPhone: ${phone}\nPayment Method: ${paymentMethod}\n\nReason: ${reason}${notes ? `\n\nAdditional Notes: ${notes}` : ''}`,
       })
 
       setSuccess(true)
-      
+
       // Redirect after 3 seconds
       setTimeout(() => {
         router.push('/dashboard')
@@ -170,169 +171,183 @@ export default function BookingPage() {
       )}
 
       {!loading && practitioner && !success && (
-      <MainLayout>
-        <div className="bg-leaf-pattern py-8">
-          <div className="container mx-auto px-4">
-            <h1 className="text-3xl font-bold mb-2">Book Appointment</h1>
-            <p className="text-muted-foreground">
-              Schedule your appointment with {practitioner.profiles.full_name}
-            </p>
+        <MainLayout>
+          <div className="bg-leaf-pattern py-8">
+            <div className="container mx-auto px-4">
+              <h1 className="text-3xl font-bold mb-2">Book Appointment</h1>
+              <p className="text-muted-foreground">
+                Schedule your appointment with {practitioner.profiles.full_name}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
-            {/* Practitioner Summary Card */}
-            <Card className="mb-8 bg-gradient-green">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4">
-                  <Avatar className="w-20 h-20">
-                    <AvatarImage src={practitioner.profile_picture_url || undefined} />
-                    <AvatarFallback className="bg-primary text-primary-foreground text-xl">
-                      {getInitials(practitioner.profiles.full_name)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h2 className="text-2xl font-bold mb-1">
-                      {practitioner.profiles.full_name}
-                    </h2>
-                    <p className="text-muted-foreground">{practitioner.specialty}</p>
-                    {practitioner.credentials && (
-                      <p className="text-sm text-muted-foreground">
-                        {practitioner.credentials}
-                      </p>
+          <div className="container mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto">
+              {/* Practitioner Summary Card */}
+              <Card className="mb-8 bg-gradient-green">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <Avatar className="w-20 h-20">
+                      <AvatarImage src={practitioner.profile_picture_url || undefined} />
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xl">
+                        {getInitials(practitioner.profiles.full_name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h2 className="text-2xl font-bold mb-1">
+                        {practitioner.profiles.full_name}
+                      </h2>
+                      <p className="text-muted-foreground">{practitioner.specialty}</p>
+                      {practitioner.credentials && (
+                        <p className="text-sm text-muted-foreground">
+                          {practitioner.credentials}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Booking Form */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Appointment Details</CardTitle>
+                  <CardDescription>
+                    Fill in the information below to book your appointment
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                      <Alert variant="destructive">
+                        <AlertDescription>{error}</AlertDescription>
+                      </Alert>
                     )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Booking Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Appointment Details</CardTitle>
-                <CardDescription>
-                  Fill in the information below to book your appointment
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {error && (
-                    <Alert variant="destructive">
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                  )}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="date">Date *</Label>
+                        <Input
+                          id="date"
+                          type="date"
+                          value={date}
+                          onChange={(e) => setDate(e.target.value)}
+                          min={new Date().toISOString().split('T')[0]}
+                          required
+                        />
+                      </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="time">Time *</Label>
+                        <Input
+                          id="time"
+                          type="time"
+                          value={time}
+                          onChange={(e) => setTime(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+
                     <div className="space-y-2">
-                      <Label htmlFor="date">Date *</Label>
+                      <Label htmlFor="consultationType">Consultation Type *</Label>
+                      <Select value={consultationType} onValueChange={setConsultationType}>
+                        <SelectTrigger id="consultationType">
+                          <SelectValue placeholder="Select consultation type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {practitioner.consultation_types.map((type) => (
+                            <SelectItem key={type} value={type}>
+                              {type}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="paymentMethod">Payment Method *</Label>
+                      <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                        <SelectTrigger id="paymentMethod">
+                          <SelectValue placeholder="Select payment method" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Card">Card</SelectItem>
+                          <SelectItem value="Cash">Cash</SelectItem>
+                          <SelectItem value="Online">Online</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">Phone Number *</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="+1 (555) 123-4567"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="reason">Reason for Visit *</Label>
                       <Input
-                        id="date"
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        min={new Date().toISOString().split('T')[0]}
+                        id="reason"
+                        type="text"
+                        placeholder="Brief description of your concern"
+                        value={reason}
+                        onChange={(e) => setReason(e.target.value)}
                         required
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="time">Time *</Label>
-                      <Input
-                        id="time"
-                        type="time"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="consultationType">Consultation Type *</Label>
-                    <Select value={consultationType} onValueChange={setConsultationType}>
-                      <SelectTrigger id="consultationType">
-                        <SelectValue placeholder="Select consultation type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {practitioner.consultation_types.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
+                      <Label htmlFor="notes">Additional Notes (Optional)</Label>
+                      <Textarea
+                        id="notes"
+                        placeholder="Any additional information you'd like to share"
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        rows={4}
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+1 (555) 123-4567"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                      />
+                    <div className="flex gap-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => router.back()}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit" className="flex-1" disabled={submitting}>
+                        {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Confirm Booking
+                      </Button>
                     </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="reason">Reason for Visit *</Label>
-                    <Input
-                      id="reason"
-                      type="text"
-                      placeholder="Brief description of your concern"
-                      value={reason}
-                      onChange={(e) => setReason(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="notes">Additional Notes (Optional)</Label>
-                    <Textarea
-                      id="notes"
-                      placeholder="Any additional information you'd like to share"
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      rows={4}
-                    />
-                  </div>
-
-                  <div className="flex gap-4">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => router.back()}
-                    >
-                      Cancel
-                    </Button>
-                    <Button type="submit" className="flex-1" disabled={submitting}>
-                      {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Confirm Booking
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
-      </MainLayout>
+        </MainLayout>
       )}
     </ProtectedRoute>
   )
